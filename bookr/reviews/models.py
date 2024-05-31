@@ -21,8 +21,7 @@ class Book(models.Model):
         verbose_name="Date the book was published.")
     isbn = models.CharField(max_length=20,
                             verbose_name="ISBN number of the book.")
-    publisher = models.ForeignKey(Publisher,
-                                  on_delete=models.CASCADE)
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, default=1)
     contributors = models.ManyToManyField('Contributor',
                                           through="BookContributor")
 
@@ -32,10 +31,8 @@ class Book(models.Model):
 
 class Contributor(models.Model):
     """A contributor to a Book, e.g. author, editor, co-author."""
-    first_names = models.CharField(max_length=50,
-                                   help_text="The contributor's first name or names.")
-    last_names = models.CharField(max_length=50,
-                                  help_text="The contributor's last name or names.")
+    first_names = models.CharField(max_length=50, help_text="The contributor's first name or names.", default='N/A')
+    last_names = models.CharField(max_length=50, help_text="The contributor's last name or names.", default='N/A')
     email = models.EmailField(help_text="The contact email for the contributor.")
 
     def __str__(self):
