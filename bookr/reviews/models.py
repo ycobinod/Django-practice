@@ -28,15 +28,18 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-
 class Contributor(models.Model):
-    """A contributor to a Book, e.g. author, editor, co-author."""
-    first_names = models.CharField(max_length=50, help_text="The contributor's first name or names.", default='N/A')
-    last_names = models.CharField(max_length=50, help_text="The contributor's last name or names.", default='N/A')
+    first_names = models.CharField(max_length=50,help_text= "The contributor's first""name or names.")
+    last_names = models.CharField(max_length=50,help_text="The contributor's last""name or names.")
     email = models.EmailField(help_text="The contact email for the contributor.")
 
+    def initialled_name(self):
+
+        initials = ''.join([name[0] for name in self.first_names.split(' ')])
+        return "{}, {}".format(self.last_names, initials)
     def __str__(self):
-        return self.first_names
+      return self.initialled_name()
+
 
 
 class BookContributor(models.Model):
