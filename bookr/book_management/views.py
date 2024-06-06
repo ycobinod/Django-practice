@@ -9,12 +9,12 @@ class BookRecordFormView(FormView):
     success_url='book_management/entry_success'
 
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         form.save()
         return super() .form_valid(form)
     
 class FormSuccessView(View):
-    def get(self, request , *args,**kwargs):
+    def get(self):
         return HttpResponse("Book record save successfully")
     
 
