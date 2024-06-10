@@ -37,3 +37,4 @@ def book_detail(request,pk):
         context = {"book": book,"book_rating": None,"reviews": None}
         
         return render(request, "reviews/book_detail.html", context)
+
