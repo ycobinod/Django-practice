@@ -39,6 +39,9 @@ class Contributor(models.Model):
         return "{}, {}".format(self.last_names, initials)
     def __str__(self):
       return self.initialled_name()
+    
+    def number_contributions(self):
+        return self.bookcontributor_set.count()
 
 
 

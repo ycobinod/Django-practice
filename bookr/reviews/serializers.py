@@ -1,34 +1,32 @@
 from rest_framework import serializers
+from .models import BookContributor,Book,Publisher,Contributor
 
 
-# class PublisherSerializer(serializers.Serializer):
-#     name=serializers.CharField()
-#     website=serializers.URLField()
-#     email=serializers.EmailField()
+class PublisherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Publisher
+        fields=['name','website','email']
 
-# class BookSerializer(serializers.Serializer):
-#     title=serializers.CharField()
-#     publication_date=serializers.DateField()
-#     isbn=serializers.CharField()
-#     publisher=PublisherSerializer()
-
-#class based view
-# class PublisherSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model=Publisher
-#         fields=['name','website','email']
-
-# class BookSerializer(serializers.ModelSerializer):
-#     publisher=PublisherSerializer()
-#     class Meta:
-#         model=Book
-#         fields=['title','publication_date','isbn','publisher']
+class BookSerializer(serializers.ModelSerializer):
+    publisher=PublisherSerializer()
+    class Meta:
+        model=Book
+        fields=['title','publication_date','isbn','publisher']
 
     
-from .models import Contributor
+class ContributionSerializer(serializers.ModelSerializer):
+    book=BookSerializer()
+    class Meta:
+        model=BookContributor
+        fields=['book','role']
 
 class ContributorSerializer(serializers.ModelSerializer):
+    bookcontributor_set=ContributionSerializer(read_only=True,many=True)
+    number_contributions=serializers.ReadOnlyField()
     class Meta:
         model=Contributor
-        fields=['first_name','last_name','email']
+        fields=['first_names','last_names','email','bookcontributor_set','number_contributions']
+
+
+
 
