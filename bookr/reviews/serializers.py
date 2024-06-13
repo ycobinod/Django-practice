@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BookContributor,Book,Publisher,Contributor
+from .models import BookContributor,Book,Publisher,Contributor,Review
 
 
 class PublisherSerializer(serializers.ModelSerializer):
@@ -26,4 +26,14 @@ class ContributorSerializer(serializers.ModelSerializer):
     class Meta:
         model=Contributor
         fields=['first_names','last_names','email','bookcontributor_set','number_contributions']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    book = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ['pk', 'content', 'date_created', 'date_edited', 'rating', 'creator', 'book', 'book_id']
+
+
+
 
