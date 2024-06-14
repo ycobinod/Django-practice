@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'reviews',
-    'book_management'
+    'book_management',
+    'bookr_test'
 ]
 
 MIDDLEWARE = [
